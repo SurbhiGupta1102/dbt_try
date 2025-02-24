@@ -1,0 +1,56 @@
+version: 2
+
+models:
+  - name: staging_customers
+    description: "Staging table for customer data."
+    columns:
+      - name: cust_id
+        description: "Primary key for customers."
+        tests:
+          - unique
+          - not_null
+          
+  - name: staging_orders
+    description: "Staging table for order data."
+    columns:
+      - name: order_id
+        description: "Primary key for orders."
+        tests:
+          - unique
+          - not_null
+      - name: total_amount
+        description: "Total order amount."
+        tests:
+          - not_null
+      - name: status
+        description: "Order status (pending, completed, canceled)."
+        tests:
+          - accepted_values:
+              values: ['pending', 'completed', 'canceled']
+
+  - name: staging_products
+    description: "Staging table for product data."
+    columns:
+      - name: product_id
+        description: "Primary key for products."
+        tests:
+          - unique
+          - not_null
+
+  - name: staging_order_items
+    description: "Staging table for order item data."
+    columns:
+      - name: order_item_id
+        description: "Primary key for order items."
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        description: "Foreign key referencing orders."
+        tests:
+          - not_null
+      - name: product_id
+        description: "Foreign key referencing products."
+        tests:
+          - not_null
+      

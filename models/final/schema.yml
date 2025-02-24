@@ -1,0 +1,37 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "Fact table for orders."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: total_amount
+        tests:
+          - not_null
+      
+          
+  - name: fct_order_revenue
+    description: "Fact table for order revenue."
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+      - name: total_revenue
+        description: "Total revenue for an order, should always be greater than zero."
+        tests:
+          - not_null
+          - is_total_revenue_positive
+
+
+  - name: dim_customers
+    description: "Dimension table for customers."
+    columns:
+      - name: cust_id
+        tests:
+          - unique
+          - not_null
+      
